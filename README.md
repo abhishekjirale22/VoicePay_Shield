@@ -1,6 +1,6 @@
 # VoicePay Shield
 
-VoicePay Shield is a focused hackathon MVP for protecting corporate payment approvals from voice cloning fraud. Finance staff can create a payment request; an authorised approver records or uploads a one-time spoken challenge; the server checks the recording with DetectifAI deepfake and speaker verification APIs and records an approval, block, or manual review decision.
+VoicePay Shield is an institutional treasury control MVP for banks, public-sector organizations, and large enterprises. It focuses on high-value transfers (demo floor: INR 50 lakh), binding an approver voice check to the paying legal entity, beneficiary, transfer ID, and amount. DetectifAI deepfake detection and speaker verification produce an approval, block, or manual-review signal before an institution releases a transfer.
 
 ## Requirements
 
@@ -19,11 +19,11 @@ Open [http://localhost:3000](http://localhost:3000). `.env.local` is read by the
 
 ### Two-minute demo
 
-1. Create a payment request from the dashboard.
+1. Create an institutional transfer request of at least INR 50 lakh and enter the paying legal entity and beneficiary.
 2. On the approval screen, record a short sample or choose an audio file.
 3. Pick a demo scenario: genuine approver, different speaker, synthetic voice, or low confidence.
 4. Click **Verify and approve payment** to show the decision card and updated audit log.
-5. Open **Approver enrolment** to record a consented reference voice. The browser keeps demo payment history and approver audio in local storage.
+5. Open **Approver enrolment** to register a consented treasury approver voice. The browser keeps demo payment history and approver audio in local storage.
 
 Demo mode is clearly marked in the interface. It is intended for local UI demonstrations and uses simulated scores; demo mode does not call DetectifAI. Demo and live payment histories use separate browser storage keys.
 
@@ -76,7 +76,7 @@ Invoke-RestMethod -Uri 'https://platform.detectif.ai/v1/usage?limit=20' -Headers
 3. Set `DEMO_MODE=false` for a live integration deployment. Never use a `NEXT_PUBLIC_` prefix for provider secrets.
 4. Deploy. The `/api/enroll` and `/api/verify` routes run in the Node.js runtime; credentials remain server-side.
 
-Local demo records and enrolled reference audio live in that browser's local storage. They are not shared between devices or users. This MVP does not implement identity/login, persistent server storage, bank integration, or payment transfer.
+Local demo records and enrolled reference audio live in that browser's local storage. They are not shared between devices or users. This MVP does not implement institutional identity verification, SSO, role-based access, multi-person maker-checker approval, persistent server storage, bank integration, or payment transfer. The INR 50 lakh floor is a product-demo guardrail; production institutions must set their own limits and enforce them server-side against their treasury policy. Voice results are an additional risk signal and do not release funds.
 
 ## Stack
 
